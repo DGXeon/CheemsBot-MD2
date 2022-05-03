@@ -53,9 +53,9 @@ Scan qr code from the above button, u can pay through GooglePay, Paytm, PhonePe 
 
 ## `SETTINGS`
 
-- CHANGE OWNER NUMBER [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L25)
-- CHANGE OWNER NAME [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L30)
-- CHANGE BOT NAME [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L29)
+- CHANGE OWNER NUMBER [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L26)
+- CHANGE OWNER NAME [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L37)
+- CHANGE BOT NAME [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L28)
 
 ## ` BUILDPACKS`
 
