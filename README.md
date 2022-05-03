@@ -1,4 +1,4 @@
-<h1 align="center">ꪶ𝗖𝗵𝗲𝗲𝗺𝘀 𝗕𝗼𝘁-𝗠𝗗ꫂ 𝗩𝟮<br></h1>
+<h1 align="center">ꪶ𝗖𝗵𝗲𝗲𝗺𝘀 𝗕𝗼𝘁-𝗠𝗗 𝗩𝟮ꫂ<br></h1>
 <p align="center">
   <img src="https://telegra.ph/file/8adfac9d34c43ce444fbf.jpg" width="540" height="300" />
 </p>
@@ -16,13 +16,13 @@ Cheems Bot Multi Device is a automated whatsapp bot created by <a href="https://
 # ```Bot Info```
 <p align="center">
 <a href="https://github.com/DGXeon/followers"><img title="Followers" src="https://img.shields.io/github/followers/DGXeon?color=red&style=flat-square"></a>
-<a href="https://github.com/DGXeon/CheemsBot-MD/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/DGXeon/CheemsBot-MD?color=blue&style=flat-square"></a>
-<a href="https://github.com/DGXeon/CheemsBot-MD/network/members"><img title="Forks" src="https://img.shields.io/github/forks/DGXeon/CheemsBot-MD?color=red&style=flat-square"></a>
-<a href="https://github.com/DGXeon/CheemsBot-MD/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/DGXeon/CheemsBot-MD?label=Watchers&color=blue&style=flat-square"></a>
-<a href="https://github.com/DGXeon/CheemsBot-MD"><img title="Open Source" src="https://img.shields.io/badge/Author-Xeon%20Bot%20Inc.-red?v=103"></a>
-<a href="https://github.com/DGXeon/CheemsBot-MD/"><img title="Size" src="https://img.shields.io/github/repo-size/DGXeon/CheemsBot-MD?style=flat-square&color=green"></a>
-<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FDGXeon%2FCheemsBot-MD&count_bg=%2379C83D&title_bg=%23555555&icon=probot.svg&icon_color=%2300FF6D&title=hits&edge_flat=false"/></a>
-<a href="https://github.com/DGXeon/CheemsBot-MD/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
+<a href="https://github.com/DGXeon/CheemsBot-MD2/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/DGXeon/CheemsBot-MD2?color=blue&style=flat-square"></a>
+<a href="https://github.com/DGXeon/CheemsBot-MD2/network/members"><img title="Forks" src="https://img.shields.io/github/forks/DGXeon/CheemsBot-MD2?color=red&style=flat-square"></a>
+<a href="https://github.com/DGXeon/CheemsBot-MD2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/DGXeon/CheemsBot-MD2?label=Watchers&color=blue&style=flat-square"></a>
+<a href="https://github.com/DGXeon/CheemsBot-MD2"><img title="Open Source" src="https://img.shields.io/badge/Author-Xeon%20Bot%20Inc.-red?v=103"></a>
+<a href="https://github.com/DGXeon/CheemsBot-MD2/"><img title="Size" src="https://img.shields.io/github/repo-size/DGXeon/CheemsBot-MD2?style=flat-square&color=green"></a>
+<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FDGXeon%2FCheemsBot-MD2&count_bg=%2379C83D&title_bg=%23555555&icon=probot.svg&icon_color=%2300FF6D&title=hits&edge_flat=false"/></a>
+<a href="https://github.com/DGXeon/CheemsBot-MD2/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
 </p>
 <p align='center'>
     </p>
@@ -53,9 +53,9 @@ Scan qr code from the above button, u can pay through GooglePay, Paytm, PhonePe 
 
 ## `SETTINGS`
 
-- CHANGE OWNER NUMBER [Here](https://github.com/DGXeon/CheemsBot-MD/blob/master/config/config.json#L25)
-- CHANGE OWNER NAME [Here](https://github.com/DGXeon/CheemsBot-MD/blob/master/config/config.json#L30)
-- CHANGE BOT NAME [Here](https://github.com/DGXeon/CheemsBot-MD/blob/master/config/config.json#L29)
+- CHANGE OWNER NUMBER [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L25)
+- CHANGE OWNER NAME [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L30)
+- CHANGE BOT NAME [Here](https://github.com/DGXeon/CheemsBot-MD2/blob/master/config/config.json#L29)
 
 ## ` BUILDPACKS`
 
@@ -78,7 +78,7 @@ heroku/nodejs
 ## `Clone Repo & Installation dependencies`
 ```bash
 git clone https://github.com/DGXeon/CheemsBot-MD2.git
-cd CheemsBot-MD
+cd CheemsBot-MD2
 npm start
 ```
 ## `For Termux/Ssh/Ubuntu`
@@ -94,7 +94,7 @@ pkg install ffmpeg -y
 pkg install wget
 pkg install imagemagick -y
 git clone https://github.com/DGXeon/CheemsBot-MD2
-cd CheemsBot-MD
+cd CheemsBot-MD2
 npm start
 ```
 ## `For VPS`
