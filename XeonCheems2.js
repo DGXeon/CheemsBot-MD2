@@ -1876,7 +1876,7 @@ break
                 }
             }
             break
-case 'smeme': case 'stickermeme': case 'stickmeme': {
+case 'smemex': case 'stickermemex': case 'stickmemex': {
 let { TelegraPh } = require('./lib/uploader')
 if (!text) return reply(`Send/Reply Photo With Caption ${prefix + command} *Text*`)
 if (text.includes('|')) return reply(`Send/Reply Photo With Caption ${prefix + command} *Text*`)
@@ -2725,7 +2725,7 @@ case 'webtonsearch': case 'webtoon':
                 XeonBotInc.sendMessage(m.chat, { audio: { url: anu.result.audio }, mimetype: 'audio/mpeg'}, { quoted: msg })
             }
             break
-	        case 'instagram': case 'ig': case 'igdl': {
+	        case 'instagramx': case 'igx': case 'igdlx': {
                 if (!text) return reply(`No Query Url!`)
                 reply(mess.wait)
                 if (/(?:\/p\/|\/reel\/|\/tv\/)([^\s&]+)/.test(isUrl(text)[0])) {
@@ -2738,7 +2738,7 @@ case 'webtonsearch': case 'webtoon':
             }
             break
 		//Backup, for example, the video above doesn't come out\\
-		case 'igeh': case 'instagram2': case 'ig2': case 'igdl2': {
+		case 'igeh': case 'instagram2x': case 'ig2': case 'igdl2': {
                 if (!text) return reply(`Enter Query Link!`)
                 reply(mess.wait)
                 
@@ -2762,7 +2762,7 @@ case 'webtonsearch': case 'webtoon':
                 XeonBotInc.sendMessage(m.chat, { audio: { url: anu.result.url }, mimetype: 'audio/mpeg', fileName: anu.result.title+'.m4a' }, { quoted: msg })
             }
             break
-	        case 'twitdl': case 'twitter': {
+	        case 'twitdlx': case 'twitterx': {
                 if (!text) return reply(`Enter Query Link!`)
                 reply(mess.wait)
                 let anu = await fetchJson(api('zenz', '/api/downloader/twitter', { url: text }, 'apikey'))
@@ -2779,7 +2779,7 @@ case 'webtonsearch': case 'webtoon':
                 XeonBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
-            case 'twittermp3': case 'twitteraudio': {
+            case 'twittermp3x': case 'twitteraudiox': {
                 if (!text) return reply(`Enter Query Link!`)
                 reply(mess.wait)
                 let anu = await fetchJson(api('zenz', '/api/downloader/twitter', { url: text }, 'apikey'))
@@ -2797,7 +2797,7 @@ case 'webtonsearch': case 'webtoon':
                 XeonBotInc.sendMessage(m.chat, { audio: { url: anu.result.audio } }, { quoted: msg })
             }
             break
-	        case 'fbdl': case 'fb': case 'facebook': {
+	        case 'fbdlx': case 'fbx': case 'facebookx': {
                 if (!text) return reply(`Enter Query Link!`)
                 reply(mess.wait)
                 let anu = await fetchJson(api('zenz', '/api/downloader/facebook', { url: text }, 'apikey'))
@@ -3587,7 +3587,6 @@ case 'allmenu': {
 ┃╠${prefix}tiktoknowm [url]
 ┃╠${prefix}tiktokwm [url]
 ┃╠${prefix}tiktokmp3 [url]
-┃╠${prefix}pinterestdl [url]
 ┃╠${prefix}ytmp3 [url|quality]
 ┃╠${prefix}ytmp4 [url|quality]
 ┃╠${prefix}getmusic [yt link]
@@ -3698,7 +3697,6 @@ case 'allmenu': {
 ┃╠ ${prefix}ebinary [reply txt]
 ┃╠ ${prefix}dbinary [reply txt]
 ┃╠ ${prefix}styletext [text]
-┃╠ ${prefix}smeme [text cap img]
 ┃╠══════✪「 DATABASE 」
 ┃╠ ${prefix}setcmd
 ┃╠ ${prefix}listcmd
@@ -3942,7 +3940,6 @@ await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
 ┃╠${prefix}tiktoknowm [url]
 ┃╠${prefix}tiktokwm [url]
 ┃╠${prefix}tiktokmp3 [url]
-┃╠${prefix}pinterestdl [url]
 ┃╠${prefix}ytmp3 [url|quality]
 ┃╠${prefix}ytmp4 [url|quality]
 ┃╠${prefix}getmusic [yt link]
@@ -4073,8 +4070,6 @@ await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
 ┃╠ ${prefix}toaudio [reply vid]
 ┃╠ ${prefix}ebinary [reply txt]
 ┃╠ ${prefix}dbinary [reply txt]
-┃╠ ${prefix}styletext [text]
-┃╠ ${prefix}smeme [text cap img]
 ┃╚═════════════✪
 ┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
