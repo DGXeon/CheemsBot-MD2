@@ -2671,7 +2671,7 @@ case 'webtonsearch': case 'webtoon':
                 }
             }
             break
-	        case 'tiktok': case 'tiktoknowm': {
+	        case 'tiktokd': case 'tiktoknowmx': {
                 if (!text) return reply(`Enter Query Link!`)
                 reply(mess.wait)
                 let anu = await fetchJson(api('zenz', '/downloader/tiktok', { url: text }, 'apikey'))
@@ -2689,7 +2689,7 @@ case 'webtonsearch': case 'webtoon':
                 XeonBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
-            case 'tiktokwm': case 'tiktokwatermark': {
+            case 'tiktokwmx': case 'tiktokwatermarkx': {
                 if (!text) return reply(`Enter Query Link!`)
                 reply(mess.wait)
                 let anu = await fetchJson(api('zenz', '/downloader/tiktok', { url: text }, 'apikey'))
@@ -2707,7 +2707,7 @@ case 'webtonsearch': case 'webtoon':
                 XeonBotInc.sendMessage(m.chat, buttonMessage, { quoted: m })
             }
             break
-            case 'tiktokmp3': case 'tiktokaudio': {
+            case 'tiktokmp3x': case 'tiktokaudiox': {
                 if (!text) return reply(`Enter Query Link!`)
                 reply(mess.wait)
                 let anu = await fetchJson(api('zenz', '/downloader/musically', { url: text }, 'apikey'))
@@ -3584,9 +3584,6 @@ case 'allmenu': {
 ┃╠${prefix}buy [option]
 ┃╠${prefix}sell [option]
 ┃╠═════✪「 DOWNLOADER 」	
-┃╠${prefix}tiktoknowm [url]
-┃╠${prefix}tiktokwm [url]
-┃╠${prefix}tiktokmp3 [url]
 ┃╠${prefix}ytmp3 [url|quality]
 ┃╠${prefix}ytmp4 [url|quality]
 ┃╠${prefix}getmusic [yt link]
@@ -3937,9 +3934,6 @@ var unicorn = await getBuffer(picak+'Downloader Menu')
 await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
 ┏━「 ${botname} 」━━⭓ 
 ┃╔═════✪「 DOWNLOADER 」	        
-┃╠${prefix}tiktoknowm [url]
-┃╠${prefix}tiktokwm [url]
-┃╠${prefix}tiktokmp3 [url]
 ┃╠${prefix}ytmp3 [url|quality]
 ┃╠${prefix}ytmp4 [url|quality]
 ┃╠${prefix}getmusic [yt link]
