@@ -1241,6 +1241,7 @@ XeonBotInc.sendMessage(from, { text: `*${command}*\n\nName : ${q}\nAnswer : *${s
                     case 'stupid':
       case 'foolish':
       case 'smart':
+      case 'idiot':
       case 'gay':
       case 'lesbi':
       case 'bastard':
@@ -1405,7 +1406,7 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
 		await XeonBotInc.updateBlockStatus(users, 'unblock').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
 	}
 	break
-	    case 'setname': case 'setsubject': {
+	    case 'setname': case 'setgcname': case 'setsubject': {
                 if (!m.isGroup) return replay(`${mess.group}`)
                 if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) replay(`${mess.admin}`)
@@ -3458,11 +3459,6 @@ let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObje
 										"rowId": `${prefix}randomanimemenu`
 										},
 										{
-											"title": "Text Pro Menu",
-										"description": "Displays The List Of Text Pro Features",
-										"rowId": `${prefix}textpromenu`
-										},
-										{
 											"title": "Fun Menu",
 										"description": "Displays The List Of Fun Features",
 										"rowId": `${prefix}funmenu`
@@ -3591,10 +3587,6 @@ case 'allmenu': {
 ┃╠${prefix}tiktoknowm [url]
 ┃╠${prefix}tiktokwm [url]
 ┃╠${prefix}tiktokmp3 [url]
-┃╠${prefix}instagram [url
-┃╠${prefix}twitter [url]
-┃╠${prefix}twittermp3 [url]
-┃╠${prefix}facebook [url]
 ┃╠${prefix}pinterestdl [url]
 ┃╠${prefix}ytmp3 [url|quality]
 ┃╠${prefix}ytmp4 [url|quality]
@@ -3614,21 +3606,11 @@ case 'allmenu': {
 ┃╠${prefix}wikimedia [query]
 ┃╠${prefix}ytsearch [query]
 ┃╠${prefix}ringtone [query]
-┃╠${prefix}stalk [option|id]
 ┃╠${prefix}webtoon [query]
 ┃╠═══════✪「 RANDOM 」
 ┃╠${prefix}coffee
 ┃╠${prefix}animequote (indo)
 ┃╠${prefix}couplepp
-┃╠${prefix}waifu
-┃╠${prefix}husbu
-┃╠${prefix}neko
-┃╠${prefix}shinobu
-┃╠${prefix}megumin
-┃╠${prefix}waifus (nsfw)
-┃╠${prefix}nekos (nsfw)
-┃╠${prefix}trap (nsfw)
-┃╠${prefix}blowjob (nsfw)
 ┃╠════✪「 RANDOM ANIME 」
 ┃╠${prefix}loli
 ┃╠${prefix}bully
@@ -3657,38 +3639,6 @@ case 'allmenu': {
 ┃╠${prefix}poke
 ┃╠${prefix}dance
 ┃╠${prefix}cringe
-┃╠═══════✪「 TEXT PRO」
-┃╠ ${prefix}3dchristmas [txt]
-┃╠ ${prefix}3ddeepsea [txt]
-┃╠ ${prefix}americanflag [txt]
-┃╠ ${prefix}3dscifi [txt]
-┃╠ ${prefix}3drainbow [txt]
-┃╠ ${prefix}3dwaterpipe [txt]
-┃╠ ${prefix}halloweenskeleton [txt]
-┃╠ ${prefix}sketch [txt]
-┃╠ ${prefix}bluecircuit [txt]
-┃╠ ${prefix}space [txt]
-┃╠ ${prefix}metallic [txt]
-┃╠ ${prefix}fiction [txt]
-┃╠ ${prefix}greenhorror [txt]
-┃╠ ${prefix}transformer [txt]
-┃╠ ${prefix}berry [txt]
-┃╠ ${prefix}thunder [txt]
-┃╠ ${prefix}magma [txt]
-┃╠ ${prefix}3dcrackedstone [txt]
-┃╠ ${prefix}3dneonlight [txt]
-┃╠ ${prefix}impressiveglitch [txt]
-┃╠ ${prefix}naturalleaves [txt]
-┃╠ ${prefix}fireworksparkle [txt]
-┃╠ ${prefix}matrix [txt]
-┃╠ ${prefix}dropwater [txt]
-┃╠ ${prefix}harrypotter [txt]
-┃╠ ${prefix}foggywindow [txt]
-┃╠ ${prefix}neondevils [txt]
-┃╠ ${prefix}christmasholiday [txt]
-┃╠ ${prefix}3dgradient [txt]
-┃╠ ${prefix}blackpink [txt]
-┃╠ ${prefix}gluetext [txt]
 ┃╠═══════✪「 FUN 」
 ┃╠ ${prefix}how [text
 ┃╠ ${prefix}when [text]
@@ -3712,6 +3662,7 @@ case 'allmenu': {
 ┃╠ ${prefix}hot
 ┃╠ ${prefix}sexy
 ┃╠ ${prefix}kind
+┃╠ ${prefix}idiot
 ┃╠ ${prefix}handsome
 ┃╠ ${prefix}beautiful
 ┃╠ ${prefix}cute
@@ -3991,10 +3942,6 @@ await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
 ┃╠${prefix}tiktoknowm [url]
 ┃╠${prefix}tiktokwm [url]
 ┃╠${prefix}tiktokmp3 [url]
-┃╠${prefix}instagram [url
-┃╠${prefix}twitter [url]
-┃╠${prefix}twittermp3 [url]
-┃╠${prefix}facebook [url]
 ┃╠${prefix}pinterestdl [url]
 ┃╠${prefix}ytmp3 [url|quality]
 ┃╠${prefix}ytmp4 [url|quality]
@@ -4021,7 +3968,6 @@ await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
 ┃╠${prefix}wikimedia [query]
 ┃╠${prefix}ytsearch [query]
 ┃╠${prefix}ringtone [query]
-┃╠${prefix}stalk [option|id]
 ┃╠${prefix}webtoon [query]
 ┃╚═════════════✪
 ┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
@@ -4034,15 +3980,6 @@ await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
 ┃╠${prefix}coffee
 ┃╠${prefix}animequote (indo)
 ┃╠${prefix}couplepp
-┃╠${prefix}waifu
-┃╠${prefix}husbu
-┃╠${prefix}neko
-┃╠${prefix}shinobu
-┃╠${prefix}megumin
-┃╠${prefix}waifus (nsfw)
-┃╠${prefix}nekos (nsfw)
-┃╠${prefix}trap (nsfw)
-┃╠${prefix}blowjob (nsfw)
 ┃╚═════════════✪
 ┗━━「 ${pushname} 」━⭓`,unicorn, [{"urlButton": {"displayText": "YouTube📍","url": `${myweb}`}},{"urlButton": {"displayText": "Script🔖","url": `${sc}`}},{"quickReplyButton": {"displayText": "🍜Donate🍜","id": 'donate'}},{"quickReplyButton": {"displayText": "👤Owner👤","id": 'owner'}}] )
 break
