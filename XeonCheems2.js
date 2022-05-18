@@ -577,6 +577,9 @@ In ${clockString(new Date - user.afkTime)}
             user.afkTime = -1
             user.afkReason = ''
         }
+
+                    if(!isCmd) return
+
 switch(command) {
         case 'inventori': case 'inventory': case 'profile':{
 if (q.includes('--help')) return reply(examkosong) 
