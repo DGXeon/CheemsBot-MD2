@@ -3309,16 +3309,6 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
    │✑  Please Select The Button Below
    └───────────────┈ ⳹`,
                             hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: `${myweb}`
-                                }
-                            }, {
-                            	urlButton: {
-                                displayText: 'Script🔖',
-                                    url: `${sc}`
-                                }
-                            }, {
                                 quickReplyButton: {
                                     displayText: '🍇All Menu🍇',
                                     id: `${prefix}allmenu`
@@ -3369,16 +3359,6 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
    │✑  Please Select The Button Below
    └───────────────┈ ⳹`,
                             hydratedButtons: [{
-                                urlButton: {
-                                    displayText: 'YouTube📍',
-                                    url: `${myweb}`
-                                }
-                            }, {
-                            	urlButton: {
-                                displayText: 'Script🔖',
-                                    url: `${sc}`
-                                }
-                            }, {
                                 quickReplyButton: {
                                     displayText: '🍇All Menu🍇',
                                     id: `${prefix}allmenu`
