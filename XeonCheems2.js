@@ -2853,96 +2853,7 @@ To Download Media, Please Click One Of The Buttons Below Or Enter The ytmp3/ytmp
 		XeonBotInc.sendMessage(m.chat, { audio: { url: result.audio }, fileName: result.title+'.mp3', mimetype: 'audio/mpeg' }, { quoted: m })
 	    }
 	    break
-		case 'iqraxxx': {
-		oh = `Example : ${prefix + command} 3\n\nIQRA Which Is Available : 1,2,3,4,5,6`
-		if (!text) return reply(oh)
-		yy = await getBuffer(`https://islamic-api-indonesia.herokuapp.com/api/data/pdf/iqra${text}`)
-		XeonBotInc.sendMessage(m.chat, {document: yy, mimetype: 'application/pdf', fileName: `iqra${text}.pdf`}, {quoted:m}).catch ((err) => reply(oh))
-		}
-		break
-		case 'juzamma': {
-		if (args[0] === 'pdf') {
-		reply(mess.wait)
-		XeonBotInc.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.pdf'}, mimetype: 'application/pdf', fileName: 'juz-amma-arab-latin-indonesia.pdf'}, {quoted:m})
-		} else if (args[0] === 'docx') {
-		reply(mess.wait)
-		XeonBotInc.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.docx'}, mimetype: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', fileName: 'juz-amma-arab-latin-indonesia.docx'}, {quoted:m})
-		} else if (args[0] === 'pptx') {
-		reply(mess.wait)
-		XeonBotInc.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.pptx'}, mimetype: 'application/vnd.openxmlformats-officedocument.presentationml.presentation', fileName: 'juz-amma-arab-latin-indonesia.pptx'}, {quoted:m})
-		} else if (args[0] === 'xlsx') {
-		reply(mess.wait)
-		XeonBotInc.sendMessage(m.chat, {document: {url: 'https://fatiharridho.my.id/database/islam/juz-amma-arab-latin-indonesia.xlsx'}, mimetype: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', fileName: 'juz-amma-arab-latin-indonesia.xlsx'}, {quoted:m})
-		} else {
-		reply(`What Format Do You Want? ? Example : ${prefix + command} pdf
-
-Available Formats: pdf, docx, pptx, xlsx`)
-		}
-		}
-		break
-		case 'hadisxxx': case 'hadistxxx': {
-		if (!args[0]) return reply(`Example:
-${prefix + command} bukhari 1
-${prefix + command} abu-daud 1
-
-Options Available:
-abu-daud
-1 - 4590
-ahmad
-1 - 26363
-bukhari
-1 - 7008
-darimi
-1 - 3367
-ibu-majah
-1 - 4331
-nasai
-1 - 5662
-malik
-1 - 1594
-muslim
-1 - 5362`)
-		if (!args[1]) return reply(`Which Hadith??\n\nExample:\n${prefix + command} muslim 1`)
-		try {
-		let res = await fetchJson(`https://islamic-api-indonesia.herokuapp.com/api/data/json/hadith/${args[0]}`)
-		let { number, arab, id } = res.find(v => v.number == args[1])
-		reply(`No. ${number}
-
-${arab}
-
-${id}`)
-		} catch (e) {
-		reply(`Hadith Not Found !`)
-		}
-		}
-		break
-		case 'alquranxxx': {
-		if (!args[0]) return reply(`Usage Examples:\n${prefix + command} 1 2\n\nThen The Result Is Surah Al-Fatihah Verse 2 Along With The Audio, And The Verse Is Just 1`)
-		if (!args[1]) return reply(`Usage Examples:\n${prefix + command} 1 2\n\nThen The Result Is Surah Al-Fatihah Verse 2 Along With The Audio, And The Verse Is Just 1`)
-		let res = await fetchJson(`https://islamic-api-indonesia.herokuapp.com/api/data/quran?surah=${args[0]}&ayat=${args[1]}`)
-		let txt = `*Arab* : ${res.result.data.text.arab}
-*English* : ${res.result.data.translation.en}
-*Indonesia* : ${res.result.data.translation.id}
-
-( Q.S ${res.result.data.surah.name.transliteration.id} : ${res.result.data.number.inSurah} )`
-		reply(txt)
-		XeonBotInc.sendMessage(m.chat, {audio: { url: res.result.data.audio.primary }, mimetype: 'audio/mpeg'}, { quoted : m })
-		}
-		break
-		case 'tafsirsurahxxx': {
-		if (!args[0]) return reply(`Usage Examples:\n${prefix + command} 1 2\n\nThen The Result Is The Interpretation Of Surah Al-Fatihah Verse 2`)
-		if (!args[1]) return reply(`Usage Examples:\n${prefix + command} 1 2\n\nThen The Result Is The Interpretation Of Surah Al-Fatihah Verse 2`)
-		let res = await fetchJson(`https://islamic-api-indonesia.herokuapp.com/api/data/quran?surah=${args[0]}&ayat=${args[1]}`)
-		let txt = `「 *Tafsir Surah*  」
-
-*Short* : ${res.result.data.tafsir.id.short}
-
-*Long* : ${res.result.data.tafsir.id.long}
-
-( Q.S ${res.result.data.surah.name.transliteration.id} : ${res.result.data.number.inSurah} )`
-		reply(txt)
-		}
-		break
+		
 		   case 'bass': case 'blown': case 'deep': case 'earrape': case 'fast': case 'fat': case 'nightcore': case 'reverse': case 'robot': case 'slow': case 'smooth': case 'squirrel':
                 try {
                 let set
@@ -4061,15 +3972,6 @@ await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
 ┃╠${prefix}start
 ┃╠${prefix}next
 ┃╠${prefix}leave
-┃╚═════════════✪
-┗━━「 ${pushname} 」━⭓`,unicorn, )
-break
-case 'islamicmenu':
-var unicorn = await getBuffer(picak+'Islamic Menu')
-await XeonBotInc.send5ButImg(from, `` + '' + ' ', `
-┏━「 ${botname} 」━━⭓ 
-┃╔══✪「 ISLAMIC 」	        
-┃╠${prefix}juzamma
 ┃╚═════════════✪
 ┗━━「 ${pushname} 」━⭓`,unicorn, )
 break
