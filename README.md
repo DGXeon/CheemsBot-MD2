@@ -1,4 +1,4 @@
-<h1 align="center">ꪶ𝗖𝗵𝗲𝗲𝗺𝘀 𝗕𝗼𝘁-𝗠𝗗 𝗩𝟮ꫂ<br></h1>
+<h1 align="center">ꪶ𝗖𝗵𝗲𝗲𝗺𝘀 𝗕𝗼𝘁-𝗠𝗗ꫂ<br></h1>
 <p align="center">
   <img src="https://telegra.ph/file/8adfac9d34c43ce444fbf.jpg" width="540" height="300" />
 </p>
@@ -15,14 +15,14 @@ Cheems Bot Multi Device is a automated whatsapp bot created by <a href="https://
 
 # ```Bot Info```
 <p align="center">
-<a href="https://github.com/Jetushack3/followers"><img title="Followers" src="https://img.shields.io/github/followers/Jetushack3?color=red&style=flat-square"></a>
-<a href="https://github.com/Jetushack3/olduser-cheems2/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/Jetushack3/olduser-cheems2?color=blue&style=flat-square"></a>
-    <a href="https://github.com/Jetushack3/olduser-cheems2/network/members"><img title="Forks" src="https://img.shields.io/github/forks/Jetushack3/olduser-cheems2?color=red&style=flat-square"></a>
-<a href="https://github.com/Jetushack3/olduser-cheems2/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/Jetushack3/olduser-cheems2?label=Watchers&color=blue&style=flat-square"></a>
-<a href="https://github.com/Jetushack3/olduser-cheems2"><img title="Open Source" src="https://img.shields.io/badge/Author-olduser%20Bot%20Inc.-red?v=103"></a>
-<a href="https://github.com/Jetushack3/olduser-cheems2/"><img title="Size" src="https://img.shields.io/github/repo-size/Jetushack3/olduser-cheems2?style=flat-square&color=green"></a>
-<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FJetushack3%2Folduser-cheems2&count_bg=%2379C83D&title_bg=%23555555&icon=probot.svg&icon_color=%2300FF6D&title=hits&edge_flat=false"/></a>
-<a href="https://github.com/Jetushack3/olduser-cheems2/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
+<a href="https://github.com/Jetushack3/followers"><img title="Followers" src="https://img.shields.io/github/followers/jetushack3?color=red&style=flat-square"></a>
+<a href="https://github.com/Jetushack3/olduser-cheems/stargazers/"><img title="Stars" src="https://img.shields.io/github/stars/jetushack3/olduser-cheems?color=blue&style=flat-square"></a>
+<a href="https://github.com/Jetushack3/olduser-cheems/network/members"><img title="Forks" src="https://img.shields.io/github/forks/jetushack3/olduser-cheems?color=red&style=flat-square"></a>
+<a href="https://github.com/Jetushack3/olduser-cheems/watchers"><img title="Watching" src="https://img.shields.io/github/watchers/jetushack3/olduser-cheems?label=Watchers&color=blue&style=flat-square"></a>
+<a href="https://github.com/Jetushack3/olduser-cheems"><img title="Open Source" src="https://img.shields.io/badge/Author-olduser%20Bot%20Inc.-red?v=103"></a>
+<a href="https://github.com/Jetushack3/olduser-cheems/"><img title="Size" src="https://img.shields.io/github/repo-size/jetushack3/olduser-cheems?style=flat-square&color=green"></a>
+<a href="https://hits.seeyoufarm.com"><img src="https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fjetushack3%2Folduser-cheems&count_bg=%2379C83D&title_bg=%23555555&icon=probot.svg&icon_color=%2300FF6D&title=hits&edge_flat=false"/></a>
+<a href="https://github.com/Jetushack3/olduser-cheems/graphs/commit-activity"><img height="20" src="https://img.shields.io/badge/Maintained%3F-yes-green.svg"></a>&nbsp;&nbsp;
 </p>
 <p align='center'>
     </p>
@@ -31,14 +31,10 @@ Cheems Bot Multi Device is a automated whatsapp bot created by <a href="https://
 
 ## ```Connect With Me```
 <p align="center">
-<a href="https://wa.me/916909137213"><img src="https://img.shields.io/badge/Contact olduser-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
-<a href="https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS"><img src="https://img.shields.io/badge/Join Official GC-25D366?style=for-the-badge&logo=whatsapp&logoColor=white" />
-<a href="https://youtube.com/channel/UCvAo9TZ0Pw9vrJ_0WYRyO3A"><img src="https://img.shields.io/badge/Subscribe olduser-ff0000?style=for-the-badge&logo=youtube&logoColor=ff000000&link=https://www.youtube.com/c/BOTINDO" /><br>
+<a href="https://wa.me/918602239106"><img src="https://img.shields.io/badge/Contact olduser-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/>
+<a href="https://chat.whatsapp.com/IHP6JLwAIi4HeVJMDJPw1N"><img src="https://img.shields.io/badge/Join Official GC-25D366?style=for-the-badge&logo=whatsapp&logoColor=white"/>
+<br>
 </p>
-
-## ```Donate Me```
-
-- [`FamPay`](https://telegra.ph/file/69933531032d509ff9e54.jpg)
 
 <p align="left">
 Scan qr code from the above button, u can pay through GooglePay, Paytm, PhonePe and FamPay.
@@ -46,16 +42,16 @@ Scan qr code from the above button, u can pay through GooglePay, Paytm, PhonePe 
 
 ## ```Bot Support Groups```
 
-- [`1st GC`](https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS)
-- [`2nd GC`](https://chat.whatsapp.com/LS1Xx3fSqg7FpSYSjKWhL5)
+- [`1st GC`](https://chat.whatsapp.com/IHP6JLwAIi4HeVJMDJPw1N)
+- [`2nd GC`](https://chat.whatsapp.com/IHP6JLwAIi4HeVJMDJPw1N)
 
 # Setup For Deployment 👇
 
 ## `SETTINGS`
 
-- CHANGE OWNER NUMBER [Here](https://github.com/Jetushack3/olduser-cheems2/blob/master/config/config.json#L26)
-- CHANGE OWNER NAME [Here](https://github.com/Jetushack3/olduser-cheems2/blob/master/config/config.json#L37)
-- CHANGE BOT NAME [Here](https://github.com/Jetushack3/olduser-cheems2/blob/master/config/config.json#L28)
+- CHANGE OWNER NUMBER [Here](https://github.com/Jetushack3/olduser-cheems/blob/master/config/config.json#L25)
+- CHANGE OWNER NAME [Here](https://github.com/Jetushack3/olduser-cheems/blob/master/config/config.json#L30)
+- CHANGE BOT NAME [Here](https://github.com/Jetushack3/olduser-cheems/blob/master/config/config.json#L29)
 
 ## ` BUILDPACKS`
 
@@ -66,7 +62,7 @@ https://github.com/DuckyTeam/heroku-buildpack-imagemagick
 heroku/nodejs
 ```
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Jetushack3/olduser-cheems2/)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Jetushack3/olduser-cheems/)
 
 # Install Manually 👇
 ## `Requirements`
@@ -77,9 +73,9 @@ heroku/nodejs
 * Any text editor
 ## `Clone Repo & Installation dependencies`
 ```bash
-git clone https://github.com/Jetushack3/olduser-cheems2.git
-cd olduser-cheems2
-npm start
+git clone https://github.com/Jetushack3/olduser-cheems.git
+cd olduser-cheems
+yarn start
 ```
 ## `For Termux/Ssh/Ubuntu`
 ```bash
@@ -93,9 +89,9 @@ pkg install nodejs -y
 pkg install ffmpeg -y 
 pkg install wget
 pkg install imagemagick -y
-git clone https://github.com/Jetushack3/olduser-cheems2
-cd olduser-cheems2
-npm start
+git clone https://github.com/Jetushack3/olduser-cheems
+cd olduser-cheems
+yarn start
 ```
 ## `For VPS`
 ```bash
@@ -105,11 +101,11 @@ apt apt install ffmpeg
 apt apt install libwebp 
 apt apt install imagemagick
 apt install bash
-git clone https://github.com/Jetushack3/olduser-cheems2
-cd olduser-cheems2
-npm start
+git clone https://github.com/Jetushack3/olduser-cheems
+cd olduser-cheems
+yarn start
 ```
 ## `For 24/7 Activation`
 ```bash
-npm i -g pm2 && pm2 start index.js && pm2 save && pm2 logs
+yarn i -g pm2 && pm2 start index.js && pm2 save && pm2 logs
 ```
