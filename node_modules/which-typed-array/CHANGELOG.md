@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [v1.1.8](https://github.com/inspect-js/which-typed-array/compare/v1.1.7...v1.1.8) - 2022-05-14
+
+### Commits
+
+- [actions] reuse common workflows [`95ea6c0`](https://github.com/inspect-js/which-typed-array/commit/95ea6c02dc5ec4ed0ee1b9c4692bb060108c8637)
+- [meta] use `npmignore` to autogenerate an npmignore file [`d08436a`](https://github.com/inspect-js/which-typed-array/commit/d08436a19cdd76219732f5040a01cdb92ef2820e)
+- [readme] add github actions/codecov badges [`35ae3af`](https://github.com/inspect-js/which-typed-array/commit/35ae3af6a0bb328c9d9b9bbb53e47122f269d81a)
+- [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `safe-publish-latest`, `tape` [`86e6e3a`](https://github.com/inspect-js/which-typed-array/commit/86e6e3af60b2436f0ff34968d9d6240a23f40528)
+- [actions] update codecov uploader [`0aa6e30`](https://github.com/inspect-js/which-typed-array/commit/0aa6e3026ab4198c4364737ed4f0315a2ecc432a)
+- [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `aud`, `auto-changelog`, `tape` [`a881a78`](https://github.com/inspect-js/which-typed-array/commit/a881a785f094e823e1cefe2ae9e4ebe31a8e996e)
+- [Refactor] use `for-each` instead of `foreach` [`9dafa03`](https://github.com/inspect-js/which-typed-array/commit/9dafa0377fc5c690059a9d454f1dd4d365c5c902)
+- [Deps] update `es-abstract`, `is-typed-array` [`0684022`](https://github.com/inspect-js/which-typed-array/commit/068402297608f321a4ec99ebce741b3eb38fcfdd)
+- [Deps] update `es-abstract`, `is-typed-array` [`633a529`](https://github.com/inspect-js/which-typed-array/commit/633a529081b5c48d9675abb8aea425e6e33d528e)
+
 ## [v1.1.7](https://github.com/inspect-js/which-typed-array/compare/v1.1.6...v1.1.7) - 2021-08-30
 
 ### Commits

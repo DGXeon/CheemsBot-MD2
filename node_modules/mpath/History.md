@@ -1,3 +1,7 @@
+0.9.0 / 2022-04-17
+==================
+ * feat: export `stringToParts()`
+
 0.8.4 / 2021-09-01
 ==================
  * fix: throw error if `parts` contains an element that isn't a string or number #13

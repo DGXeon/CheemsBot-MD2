@@ -298,6 +298,16 @@ exports.set = function(path, val, o, special, map, _copying) {
 };
 
 /*!
+ * Split a string path into components delimited by '.' or
+ * '[\d+]'
+ *
+ * #### Example:
+ *     stringToParts('foo[0].bar.1'); // ['foo', '0', 'bar', '1']
+ */
+
+exports.stringToParts = stringToParts;
+
+/*!
  * Recursively set nested arrays
  */
 

@@ -2,11 +2,7 @@
 
 const EventEmitter = require('events');
 const JSONB = require('json-buffer');
-
-// eslint-disable-next-line no-extend-native
-BigInt.prototype.toJSON = function () {
-	return this.toString();
-};
+const compressBrotli = require('compress-brotli');
 
 const loadStore = options => {
 	const adapters = {
@@ -18,31 +14,49 @@ const loadStore = options => {
 		postgres: '@keyv/postgres',
 		mysql: '@keyv/mysql',
 		etcd: '@keyv/etcd',
+		offline: '@keyv/offline',
+		tiered: '@keyv/tiered',
 	};
 	if (options.adapter || options.uri) {
-		const adapter = options.adapter || /^[^:]*/.exec(options.uri)[0];
+		const adapter = options.adapter || /^[^:+]*/.exec(options.uri)[0];
 		return new (require(adapters[adapter]))(options);
 	}
 
 	return new Map();
 };
 
+const iterableAdapters = [
+	'sqlite',
+	'postgres',
+	'mysql',
+	'mongo',
+	'redis',
+	'tiered',
+];
+
 class Keyv extends EventEmitter {
 	constructor(uri, options) {
 		super();
-		this.opts = Object.assign(
-			{
-				namespace: 'keyv',
-				serialize: JSONB.stringify,
-				deserialize: JSONB.parse,
-			},
-			(typeof uri === 'string') ? { uri } : uri,
-			options,
-		);
+		this.opts = {
+			namespace: 'keyv',
+			serialize: JSONB.stringify,
+			deserialize: JSONB.parse,
+			...((typeof uri === 'string') ? {uri} : uri),
+			...options,
+		};
 
 		if (!this.opts.store) {
-			const adapterOptions = Object.assign({}, this.opts);
+			const adapterOptions = {...this.opts};
 			this.opts.store = loadStore(adapterOptions);
+		}
+
+		if (this.opts.compress) {
+			const brotli = compressBrotli(this.opts.compress.opts);
+			this.opts.serialize = async ({value, expires}) => brotli.serialize({value: await brotli.compress(value), expires});
+			this.opts.deserialize = async data => {
+				const {value, expires} = brotli.deserialize(data);
+				return {value: await brotli.decompress(value), expires};
+			};
 		}
 
 		if (typeof this.opts.store.on === 'function') {
@@ -50,26 +64,127 @@ class Keyv extends EventEmitter {
 		}
 
 		this.opts.store.namespace = this.opts.namespace;
+
+		const generateIterator = iterator => async function * () {
+			for await (const [key, raw] of typeof iterator === 'function'
+				? iterator(this.opts.store.namespace)
+				: iterator) {
+				const data = this.opts.deserialize(raw);
+				if (this.opts.store.namespace && !key.includes(this.opts.store.namespace)) {
+					continue;
+				}
+
+				if (typeof data.expires === 'number' && Date.now() > data.expires) {
+					this.delete(key);
+					continue;
+				}
+
+				yield [this._getKeyUnprefix(key), data.value];
+			}
+		};
+
+		// Attach iterators
+		if (typeof this.opts.store[Symbol.iterator] === 'function' && this.opts.store instanceof Map) {
+			this.iterator = generateIterator(this.opts.store);
+		} else if (typeof this.opts.store.iterator === 'function' && this.opts.store.opts
+			&& this._checkIterableAdaptar()) {
+			this.iterator = generateIterator(this.opts.store.iterator.bind(this.opts.store));
+		}
+	}
+
+	_checkIterableAdaptar() {
+		return iterableAdapters.includes(this.opts.store.opts.dialect)
+			|| iterableAdapters.findIndex(element => this.opts.store.opts.url.includes(element)) >= 0;
 	}
 
 	_getKeyPrefix(key) {
 		return `${this.opts.namespace}:${key}`;
 	}
 
+	_getKeyPrefixArray(keys) {
+		return keys.map(key => `${this.opts.namespace}:${key}`);
+	}
+
+	_getKeyUnprefix(key) {
+		return key
+			.split(':')
+			.splice(1)
+			.join(':');
+	}
+
 	get(key, options) {
-		const keyPrefixed = this._getKeyPrefix(key);
-		const { store } = this.opts;
+		const {store} = this.opts;
+		const isArray = Array.isArray(key);
+		const keyPrefixed = isArray ? this._getKeyPrefixArray(key) : this._getKeyPrefix(key);
+		if (isArray && store.getMany === undefined) {
+			const promises = [];
+			for (const key of keyPrefixed) {
+				promises.push(Promise.resolve()
+					.then(() => store.get(key))
+					.then(data => (typeof data === 'string') ? this.opts.deserialize(data) : data)
+					.then(data => {
+						if (data === undefined || data === null) {
+							return undefined;
+						}
+
+						if (typeof data.expires === 'number' && Date.now() > data.expires) {
+							return this.delete(key).then(() => undefined);
+						}
+
+						return (options && options.raw) ? data : data.value;
+					}),
+				);
+			}
+
+			return Promise.allSettled(promises)
+				.then(values => {
+					const data = [];
+					for (const value of values) {
+						data.push(value.value);
+					}
+
+					return data.every(x => x === undefined) ? [] : data;
+				});
+		}
+
 		return Promise.resolve()
-			.then(() => store.get(keyPrefixed))
+			.then(() => isArray ? store.getMany(keyPrefixed) : store.get(keyPrefixed))
 			.then(data => (typeof data === 'string') ? this.opts.deserialize(data) : data)
 			.then(data => {
 				if (data === undefined || data === null) {
 					return undefined;
 				}
 
+				if (isArray) {
+					const result = [];
+
+					if (data.length === 0) {
+						return [];
+					}
+
+					for (let row of data) {
+						if ((typeof row === 'string')) {
+							row = this.opts.deserialize(row);
+						}
+
+						if (row === undefined || row === null) {
+							result.push(undefined);
+							continue;
+						}
+
+						if (typeof row.expires === 'number' && Date.now() > row.expires) {
+							this.delete(key).then(() => undefined);
+							result.push(undefined);
+						} else {
+							result.push((options && options.raw) ? row : row.value);
+						}
+					}
+
+					return result.every(x => x === undefined) ? [] : result;
+				}
+
 				if (typeof data.expires === 'number' && Date.now() > data.expires) {
-					this.delete(key);
-					return undefined;
+					return this.delete(key).then(() => undefined);
 				}
 
 				return (options && options.raw) ? data : data.value;
@@ -86,7 +201,7 @@ class Keyv extends EventEmitter {
 			ttl = undefined;
 		}
 
-		const { store } = this.opts;
+		const {store} = this.opts;
 
 		return Promise.resolve()
 			.then(() => {
@@ -95,7 +210,7 @@ class Keyv extends EventEmitter {
 					this.emit('error', 'symbol cannot be serialized');
 				}
 
-				value = { value, expires };
+				value = {value, expires};
 				return this.opts.serialize(value);
 			})
 			.then(value => store.set(keyPrefixed, value, ttl))
@@ -103,16 +218,53 @@ class Keyv extends EventEmitter {
 	}
 
 	delete(key) {
+		const {store} = this.opts;
+		if (Array.isArray(key)) {
+			const keyPrefixed = this._getKeyPrefixArray(key);
+			if (store.deleteMany === undefined) {
+				const promises = [];
+				for (const key of keyPrefixed) {
+					promises.push(store.delete(key));
+				}
+
+				return Promise.allSettled(promises)
+					.then(values => values.every(x => x.value === true));
+			}
+
+			return Promise.resolve()
+				.then(() => store.deleteMany(keyPrefixed));
+		}
+
 		const keyPrefixed = this._getKeyPrefix(key);
-		const { store } = this.opts;
 		return Promise.resolve()
 			.then(() => store.delete(keyPrefixed));
 	}
 
 	clear() {
-		const { store } = this.opts;
+		const {store} = this.opts;
 		return Promise.resolve()
 			.then(() => store.clear());
+	}
+
+	has(key) {
+		const keyPrefixed = this._getKeyPrefix(key);
+		const {store} = this.opts;
+		return Promise.resolve()
+			.then(async () => {
+				if (typeof store.has === 'function') {
+					return store.has(keyPrefixed);
+				}
+
+				const value = await store.get(keyPrefixed);
+				return value !== undefined;
+			});
+	}
+
+	disconnect() {
+		const {store} = this.opts;
+		if (typeof store.disconnect === 'function') {
+			return store.disconnect();
+		}
 	}
 }
 

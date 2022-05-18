@@ -8,11 +8,9 @@ const sleep = require('atomic-sleep')
 
 const BUSY_WRITE_TIMEOUT = 100
 
-// This constant ensures that SonicBoom only needs
-// 64KB MB of free memory to run. In case of having 1GB+
-// of data to write, this prevents an out of memory
-// condition.
-const MAX_WRITE = 64 * 1024
+// 16 KB. Don't write more than docker buffer size.
+// https://github.com/moby/moby/blob/513ec73831269947d38a644c278ce3cac36783b2/daemon/logger/copier.go#L13
+const MAX_WRITE = 16 * 1024
 
 function openFile (file, sonic) {
   sonic._opening = true
@@ -89,7 +87,7 @@ function SonicBoom (opts) {
     return new SonicBoom(opts)
   }
 
-  let { fd, dest, minLength, maxLength, sync, append = true, mode, mkdir, retryEAGAIN } = opts || {}
+  let { fd, dest, minLength, maxLength, maxWrite, sync, append = true, mode, mkdir, retryEAGAIN } = opts || {}
 
   fd = fd || dest
 
@@ -106,6 +104,7 @@ function SonicBoom (opts) {
   this.destroyed = false
   this.minLength = minLength || 0
   this.maxLength = maxLength || 0
+  this.maxWrite = maxWrite || MAX_WRITE
   this.sync = sync || false
   this.append = append || false
   this.mode = mode
@@ -120,8 +119,8 @@ function SonicBoom (opts) {
   } else {
     throw new Error('SonicBoom supports only file descriptors and files')
   }
-  if (this.minLength >= MAX_WRITE) {
-    throw new Error(`minLength should be smaller than MAX_WRITE (${MAX_WRITE})`)
+  if (this.minLength >= this.maxWrite) {
+    throw new Error(`minLength should be smaller than maxWrite (${this.maxWrite})`)
   }
 
   this.release = (err, n) => {
@@ -151,6 +150,7 @@ function SonicBoom (opts) {
       }
       return
     }
+    this.emit('write', n)
 
     this._len -= n
     this._writingBuf = this._writingBuf.slice(n)
@@ -231,7 +231,7 @@ SonicBoom.prototype.write = function (data) {
 
   if (
     bufs.length === 0 ||
-    bufs[bufs.length - 1].length + data.length > MAX_WRITE
+    bufs[bufs.length - 1].length + data.length > this.maxWrite
   ) {
     bufs.push('' + data)
   } else {

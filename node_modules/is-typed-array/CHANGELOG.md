@@ -1,3 +1,13 @@
+1.1.9 / 2022-05-13
+=================
+  * [Refactor] use `foreach` instead of `for-each`
+  * [readme] markdown URL cleanup
+  * [Deps] update `es-abstract`
+  * [meta] use `npmignore` to autogenerate an npmignore file
+  * [Dev Deps] update `eslint`, `@ljharb/eslint-config`, `object-inspect`, `safe-publish-latest`, `tape`
+  * [actions] reuse common workflows
+  * [actions] update codecov uploader
+
 1.1.8 / 2021-08-30
 =================
   * [Refactor] use `globalThis` if available (#53)
