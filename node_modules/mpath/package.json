@@ -1,6 +1,6 @@
 {
   "name": "mpath",
-  "version": "0.8.4",
+  "version": "0.9.0",
   "description": "{G,S}et object values using MongoDB-like path notation",
   "main": "index.js",
   "scripts": {
