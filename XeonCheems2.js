@@ -87,6 +87,7 @@ const dgxeon = require('xfarr-api')
      getSapi,
     getGajah
    } = require('./storage/user/buruan.js')
+const { inflate } = require('zlib')
    let DarahAwal =  global.rpg.darahawal
    const isDarah = cekDuluJoinAdaApaKagaDiJson(m.sender)   
    const isCekDarah = getDarah(m.sender)
@@ -208,11 +209,11 @@ module.exports = DaemonBot = async (DaemonBot, m, chatUpdate, store) => {
 	
 	//group target by xeon\\
 const reply = (teks) => {
-            DaemonBot.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": ` Join Bot's Official GC`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./XeonMedia/cheemspic.jpg`),"sourceUrl": "https://chat.whatsapp.com/LS1Xx3fSqg7FpSYSjKWhL5"}}}, { quoted: m})
+            DaemonBot.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": ` DaemonBot`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./XeonMedia/cheemspic.jpg`)}}}, { quoted: m})
         }
         
         const replay = (teks) => {
-            DaemonBot.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": ` Join Bot's Official GC`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./XeonMedia/cheemspic.jpg`),"sourceUrl": "https://chat.whatsapp.com/HYj9wu5Jrv6CROxyeQbHoS"}}}, { quoted: m})
+            DaemonBot.sendMessage(m.chat, { text: teks, contextInfo:{"externalAdReply": {"title": ` ${global.botname}`,"body": ` DaemonBot`, "previewType": "PHOTO","thumbnailUrl": ``,"thumbnail": fs.readFileSync(`./XeonMedia/cheemspic.jpg`)}}}, { quoted: m})
         }
 	
         //Public & Self\\
@@ -225,6 +226,24 @@ const reply = (teks) => {
             DaemonBot.sendReadReceipt(m.chat, m.sender, [m.key.id])
             console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.black(chalk.bgGreen(new Date)), chalk.black(chalk.bgBlue(budy || m.mtype)) + '\n' + chalk.magenta('=> From'), chalk.green(pushname), chalk.yellow(m.sender) + '\n' + chalk.blueBright('=> In'), chalk.green(m.isGroup ? pushname : 'Private Chat', m.chat))
         }
+
+           //reply saved msgs\\
+           let msgs = global.db.data.database
+           for(let t in msgs)
+           {
+               let temp1 =` ${t}`
+               let temp2= `${t} `
+               let temp3 = body.trim().split(/ +/).shift().toLowerCase()
+
+                if(body.includes(temp1) || body.includes(temp2) || temp3 === t){
+                    DaemonBot.copyNForward(m.chat, msgs[t.toLowerCase()], true)
+                }
+           }
+/*if (!text) return reply(`Example : ${prefix + command} file name\n\nView Message List With ${prefix}listmsg`)
+                let msgs = global.db.data.database
+                if (!(text.toLowerCase() in msgs)) return reply(`'${text}' Not Listed In The Message List`)
+                DaemonBot.copyNForward(m.chat, msgs[text.toLowerCase()], true)
+ */
 	
 	//reset limit every 12 hours\\
         let cron = require('node-cron')
@@ -242,7 +261,7 @@ const reply = (teks) => {
 	if (db.data.settings[botNumber].autobio) {
 	    let setting = global.db.data.settings[botNumber]
 	    if (new Date() * 1 - setting.status > 1000) {
-		let uptime = await runtime(process.uptime())
+		let uptime = runtime(process.uptime())
 		await DaemonBot.setStatus(`${DaemonBot.user.name} | Runtime : ${runtime(uptime)}`)
 		setting.status = new Date() * 1
 	    }
@@ -355,7 +374,7 @@ ${Array.from(room.jawaban, (jawaban, index) => {
             kuis = true
             jawaban = kuismath[m.sender.split('@')[0]]
             if (budy.toLowerCase() == jawaban) {
-                await reply(`🎮 Math Quiz 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Send ${prefix}math mode`)
+                reply(`🎮 Math Quiz 🎮\n\nCorrect Answer 🎉\n\nWant To Play Again? Send ${prefix}math mode`)
                 delete kuismath[m.sender.split('@')[0]]
             } else reply('*Wrong Answer!*')
         }
@@ -1370,12 +1389,13 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
                 if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) return replay(`${mess.admin}`)
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
+        if(users.isBotAdmins) return replay('oops cant remove the boss')
 		await DaemonBot.groupParticipantsUpdate(m.chat, [users], 'remove').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
 	}
 	break
 	case 'add': {
 		if (!m.isGroup) return replay(`${mess.group}`)
-                if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+               if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) return replay(`${mess.admin}`)
 		let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 		await DaemonBot.groupParticipantsUpdate(m.chat, [users], 'add').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
@@ -1388,15 +1408,59 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
 		await DaemonBot.groupParticipantsUpdate(m.chat, [users], 'promote').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
 	}
+
+    case 'promoteall': {
+		if (!m.isGroup) return replay(`${mess.group}`)
+                if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+                if (!isAdmins) return replay(`${mess.admin}`)
+
+                for(let mem of participants)
+                {
+                    if(groupAdmins.includes(mem.id)) continue
+                    await DaemonBot.groupParticipantsUpdate(m.chat, [mem.id], 'promote')
+                }
+	}
+
 	break
+
 	case 'demote': {
 		if (!m.isGroup) return replay(`${mess.group}`)
                 if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) return replay(`${mess.admin}`)
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
-		await DaemonBot.groupParticipantsUpdate(m.chat, [users], 'demote').then((res) => reply(jsonformat(res))).catch((err) => reply(jsonformat(err)))
+        if(global.premium.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(users))
+                    {
+                        replay('oops cant remove the boss')
+                    }
+                    else
+                    {
+                        await DaemonBot.groupParticipantsUpdate(m.chat, [users], 'demote')
+                    }
+    }
+	break
+
+    case 'demoteall': {
+		if (!m.isGroup) return replay(`${mess.group}`)
+                if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+                if (!isAdmins) return replay(`${mess.admin}`)
+                for(let mem of participants)
+                {
+                    if(global.premium.map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(mem.id))
+                    {
+                        //replay('oops cant remove the boss')
+                        continue
+                    }
+                    else
+                    {
+                        await DaemonBot.groupParticipantsUpdate(m.chat, [mem.id], 'demote')
+                    }
+
+                    
+                }
+
 	}
 	break
+
         case 'block': {
 		if (!isCreator) return replay(`${mess.owner}`)
 		let users = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '')+'@s.whatsapp.net'
@@ -1411,7 +1475,7 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
 	break
 	    case 'setname': case 'setgcname': case 'setsubject': {
                 if (!m.isGroup) return replay(`${mess.group}`)
-                if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+                //if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) replay(`${mess.admin}`)
                 if (!text) replay(`Where Is The Text?`)
                 await DaemonBot.groupUpdateSubject(m.chat, text).then((res) => reply(mess.success)).catch((err) => reply(jsonformat(err)))
@@ -1419,7 +1483,7 @@ case 'halah': case 'hilih': case 'huluh': case 'heleh': case 'holoh':
             break
           case 'setdesc': case 'setdesk': {
                 if (!m.isGroup) return replay(`${mess.group}`)
-                if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+                //if (!isBotAdmins) return replay(`${mess.botAdmin}`)
                 if (!isAdmins) replay(`${mess.admin}`)
                 if (!text) replay(`Where Is The Text?`)
                 await DaemonBot.groupUpdateDescription(m.chat, text).then((res) => reply(mess.success)).catch((err) => reply(jsonformat(err)))
@@ -1459,6 +1523,23 @@ let teks = `╚»˙·٠•●♥ Tag All ♥●•٠·˙«╝
                 DaemonBot.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
                 }
                 break
+
+                case 'admins': {
+                    if (!m.isGroup) return replay(`${mess.group}`)
+                    if (!isBotAdmins) return replay(`${mess.botAdmin}`)
+                    //if (!isAdmins) return replay(`${mess.admin}`)
+    let teks = `╚»˙·٠•●♥ Tag ADMINs ♥●•٠·˙«╝ 
+     
+     ➲ *Message : ${q ? q : 'no message'}*\n\n`
+                    for (let mem of participants) {
+                        if(!mem.isAdmins){
+                    teks += `🐶 @${mem.id.split('@')[0]}\n`
+                        }
+                    }
+                    DaemonBot.sendMessage(m.chat, { text: teks, mentions: participants.map(a => a.id) }, { quoted: m })
+                    }
+                    break
+
                 case 'hidetag': {
             if (!m.isGroup) return replay(`${mess.group}`)
             if (!isBotAdmins) return replay(`${mess.botAdmin}`)
@@ -1868,12 +1949,12 @@ break
                     if (/image/.test(mime)) {
                 let media = await quoted.download()
                 let encmedia = await DaemonBot.sendImageAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
-                await fs.unlinkSync(encmedia)
+                fs.unlinkSync(encmedia)
             } else if (/video/.test(mime)) {
                 if ((quoted.msg || quoted).seconds > 11) return reply('Maximum 10 Seconds!')
                 let media = await quoted.download()
                 let encmedia = await DaemonBot.sendVideoAsSticker(m.chat, media, m, { packname: global.packname, author: global.author })
-                await fs.unlinkSync(encmedia)
+                fs.unlinkSync(encmedia)
             } else {
                 reply(`Send Image/Video With Caption ${prefix + command}\nVideo Duration 1-9 Seconds`)
                 }
@@ -1889,7 +1970,7 @@ mee = await DaemonBot.downloadAndSaveMediaMessage(quoted)
 mem = await TelegraPh(mee)
 meme = `https://api.memegen.link/images/custom/-/${text}.png?background=${mem}`
 memek = await DaemonBot.sendImageAsSticker(m.chat, meme, m, { packname: global.packname, author: global.author })
-await fs.unlinkSync(memek)
+        fs.unlinkSync(memek)
 }
 break
             case 'ebinary': {
@@ -1914,7 +1995,7 @@ break
 		let anu = await fetchJson(`https://tenor.googleapis.com/v2/featured?key=AIzaSyAyimkuYQYF_FXVALexPuGQctUWRURdCYQ&contentfilter=high&media_filter=png_transparent&component=proactive&collection=emoji_kitchen_v5&q=${encodeURIComponent(emoji1)}_${encodeURIComponent(emoji2)}`)
 		for (let res of anu.results) {
 		    let encmedia = await DaemonBot.sendImageAsSticker(m.chat, res.url, m, { packname: global.packname, author: global.author, categories: res.tags })
-		    await fs.unlinkSync(encmedia)
+		    fs.unlinkSync(encmedia)
 		}
 	    }
 	    break
@@ -1922,15 +2003,21 @@ break
                 if (!quoted) return reply(`Reply Image`)
                 if (!/webp/.test(mime)) reply(`Reply Sticker With Caption *${prefix + command}*`)
                 reply(mess.wait)
-                let media = await DaemonBot.downloadAndSaveMediaMessage(quoted)
-                let ran = await getRandom('.png')
-                exec(`ffmpeg -i ${media} ${ran}`, (err) => {
+                const media = await DaemonBot.downloadAndSaveMediaMessage(quoted)
+                //let ran = getRandom('.png')
+                let buffer = fs.readFileSync(media)
+                fs.unlinkSync(media)
+                DaemonBot.sendMessage(m.chat, { image: buffer }, { quoted: m })
+
+
+                /*exec(`ffmpeg -i ${media} ${ran}`, (err) => {
                     fs.unlinkSync(media)
-                    if (err) reply(err)
+                    if (err){reply(err); return }
                     let buffer = fs.readFileSync(ran)
                     DaemonBot.sendMessage(m.chat, { image: buffer }, { quoted: m })
                     fs.unlinkSync(ran)
                 })
+                */
             }
             break
 	        case 'tomp4': case 'tovideo': {
@@ -1941,7 +2028,7 @@ break
                 let media = await DaemonBot.downloadAndSaveMediaMessage(quoted)
                 let webpToMp4 = await webp2mp4File(media)
                 await DaemonBot.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' } }, { quoted: m })
-                await fs.unlinkSync(media)
+                fs.unlinkSync(media)
             }
             break
             case 'toaud': case 'toaudio': {
@@ -1983,7 +2070,7 @@ break
                 let media = await DaemonBot.downloadAndSaveMediaMessage(quoted)
                 let webpToMp4 = await webp2mp4File(media)
                 await DaemonBot.sendMessage(m.chat, { video: { url: webpToMp4.result, caption: 'Convert Webp To Video' }, gifPlayback: true }, { quoted: m })
-                await fs.unlinkSync(media)
+                fs.unlinkSync(media)
             }
             break
 	        case 'tourl': {
@@ -1997,7 +2084,7 @@ break
                     let anu = await UploadFileUgu(media)
                     reply(util.format(anu))
                 }
-                await fs.unlinkSync(media)
+                fs.unlinkSync(media)
             }
             break
             case 'imagenobgxxx': case 'removebgxxx': case 'remove-bgxxx': {
@@ -2007,9 +2094,9 @@ break
 	    let remobg = require('remove.bg')
 	    let apirnobg = ['q61faXzzR5zNU6cvcrwtUkRU','S258diZhcuFJooAtHTaPEn4T','5LjfCVAp4vVNYiTjq9mXJWHF','aT7ibfUsGSwFyjaPZ9eoJc61','BY63t7Vx2tS68YZFY6AJ4HHF','5Gdq1sSWSeyZzPMHqz7ENfi8','86h6d6u4AXrst4BVMD9dzdGZ','xp8pSDavAgfE5XScqXo9UKHF','dWbCoCb3TacCP93imNEcPxcL']
 	    let apinobg = apirnobg[Math.floor(Math.random() * apirnobg.length)]
-	    hmm = await './src/remobg-'+getRandom('')
+	    hmm = './src/remobg-'+getRandom('')
 	    localFile = await DaemonBot.downloadAndSaveMediaMessage(quoted, hmm)
-	    outputFile = await './src/hremo-'+getRandom('.png')
+	    outputFile = './src/hremo-'+getRandom('.png')
 	    reply(mess.wait)
 	    remobg.removeBackgroundFromImageFile({
 	      path: localFile,
@@ -2020,8 +2107,8 @@ break
 	      outputFile 
 	    }).then(async result => {
 	    DaemonBot.sendMessage(m.chat, {image: fs.readFileSync(outputFile), caption: mess.success}, { quoted : m })
-	    await fs.unlinkSync(localFile)
-	    await fs.unlinkSync(outputFile)
+	    fs.unlinkSync(localFile)
+	    fs.unlinkSync(outputFile)
 	    })
 	    }
 	    break
@@ -2154,7 +2241,7 @@ break
             break
 case 'webtonsearch': case 'webtoon':
                 if (!text) return reply('What Are you Looking For??')
-                await reply(mess.wait)
+                reply(mess.wait)
                 dgxeon.Webtoons(q).then(async data => {
                     let txt = `*------「 WEBTOONS-SEARCH 」------*\n\n`
                     for (let i of data) {
@@ -2164,7 +2251,7 @@ case 'webtonsearch': case 'webtoon':
                         txt += `*🎥 Genre :* ${i.genre}\n`
                         txt += `*📚 Url :* ${i.url}\n ----------------------------------------------------------\n`
                     }
-                    await reply(txt)
+                    reply(txt)
                 })
                 .catch((err) => {
                     reply(mess.error)
@@ -2172,7 +2259,7 @@ case 'webtonsearch': case 'webtoon':
             break
             case 'drakorxxx':
                 if (!text) return reply('What Are You Looking For??')
-                await reply(mess.wait)
+                reply(mess.wait)
                 dgxeon.Drakor(`${text}`).then(async data => {
                     let txt = `*-----「 DRAKOR-SEARCH 」-----*\n\n`
                     for (let i of data) {
@@ -2189,7 +2276,7 @@ case 'webtonsearch': case 'webtoon':
             break
             case 'animexxx':{
                 if (!text) return reply(`What Anime Are You Looking For??`)
-                await reply(mess.wait)
+                reply(mess.wait)
                 dgxeon.Anime(q).then(async data => {
                     let txt = `*-------「 ANIME-SEARCH 」-------*\n\n`
                     for (let i of data) {
@@ -2214,7 +2301,7 @@ case 'webtonsearch': case 'webtoon':
             break
             case 'characterxxx': case 'karakterxxx':
                 if (!text) return reply(`What Anime Character Are You Looking For??`)
-                await reply(mess.wait)
+                reply(mess.wait)
                 dgxeon.Character(q).then(async data => {
                     let txt = `*---「 CHARACTER-SEARCH 」---*\n\n`
                     for (let i of data) {
@@ -2238,7 +2325,7 @@ case 'webtonsearch': case 'webtoon':
             break
             case 'manga':
                 if (!text) return reply(`What Manga Are You Looking For??`)
-                await reply(mess.wait)
+                reply(mess.wait)
                 dgxeon.Manga(`${text}`).then(async data => {
                     let txt = `*------「 MANGA-SEARCH 」------*\n\n`
                     for (let i of data) {
@@ -2608,7 +2695,7 @@ case 'webtonsearch': case 'webtoon':
                 let [tahun, bulan, tanggal] = [d.getFullYear(), d.getMonth() + 1, d.getDate()]
                 let birth = [date.getFullYear(), date.getMonth() + 1, date.getDate()]
 
-                let zodiac = await getZodiac(birth[1], birth[2])
+                let zodiac = getZodiac(birth[1], birth[2])
                 
                 let anu = await primbon.zodiak(zodiac)
                 if (anu.status == false) return reply(anu.message)
@@ -2932,7 +3019,7 @@ ${Object.entries(global.db.data.sticker).map(([key, value], index) => `${index +
                 if (!m.quoted) return reply(`Reply Message You Want To Save In Database`)
                 if (!text) return reply(`Example : ${prefix + command} File Name`)
                 let msgs = global.db.data.database
-                if (text.toLowerCase() in msgs) return reply(`'${text}' Has Been Registered In The Message List`)
+                if (text.toLowerCase() in msgs) return reply(`'${text}' is already In The Message List`)
                 msgs[text.toLowerCase()] = quoted.fakeObj
 reply(`Successfully Added Message In Message List As '${text}'
     
@@ -3292,117 +3379,117 @@ const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
                 }
                 break
                 case 'command': {
-let template = await generateWAMessageFromContent(m.chat, proto.Message.fromObject({
-                listMessage :{
-                    title: `Hi ${pushname}`,
-                    description: `Please Choose The Menu\n\n`,
-                    buttonText: "Menu",
-                    footerText: `${global.footer}`,
-                    listType: "SINGLE_SELECT",
-                    sections: [{
-								"title": "Main Features",
-								"rows": [
-									{
-										"title": "Main Menu",
-										"description": "Displays The List Of Main Features",
-										"rowId": `${prefix}mainmenu`
-									}
-								]
-							},
-							{
-								"title": "Bot Features",
-								"rows": [
-									{
-										"title": "All Menu",
-										"description": "Displays The List Of All The Features!",
-										"rowId": `${prefix}allmenu`
-									},
-									{
-										"title": "Owner Menu",
-										"description": "Displays The List Of Owner Features",
-										"rowId": `${prefix}ownermenu`
-										},
-									{
-										"title": "Group Menu",
-										"description": "Displays The List Of Main Features",
-										"rowId": `${prefix}groupmenu`
-										},
-									{
-										"title": "Rpg Menu",
-										"description": "Displays The List Of Rpg Features",
-										"rowId": `${prefix}rpgmenu`
-									},
-									{
-										"title": "Download Menu",
-										"description": "Displays The List Of Download Features",
-										"rowId": `${prefix}downloadmenu`
-									},
-									{
-										"title": "Search Menu",
-										"description": "Displays The List Of Searching Features",
-										"rowId": `${prefix}searchmenu`
-									},
-									{
-											"title": "Random Menu",
-										"description": "Displays The List Of Random Features",
-										"rowId": `${prefix}randommenu`
-										},
-										{
-											"title": "Random Anime Menu",
-										"description": "Displays The List Of Random Anime Features",
-										"rowId": `${prefix}randomanimemenu`
-										},
-										{
-											"title": "Fun Menu",
-										"description": "Displays The List Of Fun Features",
-										"rowId": `${prefix}funmenu`
-										},
-										{
-											"title": "Convert Menu",
-										"description": "Displays The List Of Convert Features",
-										"rowId": `${prefix}convertmenu`
-										},
-										{
-											"title": "Database Menu",
-										"description": "Displays The List Of Database Features",
-										"rowId": `${prefix}databasemenu`
-										},
-										{
-											"title": "Voice Changer Menu",
-										"description": "Displays The List Of Voice Changing Features",
-										"rowId": `${prefix}voicechangermenu`
-										},
-										{
-											"title": "Horoscope Menu",
-										"description": "Displays The List Of Horoscope Features",
-										"rowId": `${prefix}horoscopemenu`
-										}
-								]
-							},
-							{
-								"title": "Chat With Fellow Users",
-								"rows": [
-									{
-										"title": "Anonymous Chat Menu",
-										"description": "Displays The List Of Anonymous Chat Features",
-										"rowId": `${prefix}anonymouschatmenu`
-									}
-								]
-							},
-							{
-								"title": "Credit",
-								"rows": [
-									{
-										"title": "Thanks To",
-										"description": "Displays The List Of Credit Of The Bot !!",
-										"rowId": `${prefix}tqtt`
-									}
-								]
-							}
-						],
-          listType: 1
+let template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
+    listMessage: {
+        title: `Hi ${pushname}`,
+        description: `Please Choose The Menu\n\n`,
+        buttonText: "Menu",
+        footerText: `${global.footer}`,
+        listType: "SINGLE_SELECT",
+        sections: [{
+            "title": "Main Features",
+            "rows": [
+                {
+                    "title": "Main Menu",
+                    "description": "Displays The List Of Main Features",
+                    "rowId": `${prefix}mainmenu`
                 }
-            }), {})
+            ]
+        },
+        {
+            "title": "Bot Features",
+            "rows": [
+                {
+                    "title": "All Menu",
+                    "description": "Displays The List Of All The Features!",
+                    "rowId": `${prefix}allmenu`
+                },
+                {
+                    "title": "Owner Menu",
+                    "description": "Displays The List Of Owner Features",
+                    "rowId": `${prefix}ownermenu`
+                },
+                {
+                    "title": "Group Menu",
+                    "description": "Displays The List Of Main Features",
+                    "rowId": `${prefix}groupmenu`
+                },
+                {
+                    "title": "Rpg Menu",
+                    "description": "Displays The List Of Rpg Features",
+                    "rowId": `${prefix}rpgmenu`
+                },
+                {
+                    "title": "Download Menu",
+                    "description": "Displays The List Of Download Features",
+                    "rowId": `${prefix}downloadmenu`
+                },
+                {
+                    "title": "Search Menu",
+                    "description": "Displays The List Of Searching Features",
+                    "rowId": `${prefix}searchmenu`
+                },
+                {
+                    "title": "Random Menu",
+                    "description": "Displays The List Of Random Features",
+                    "rowId": `${prefix}randommenu`
+                },
+                {
+                    "title": "Random Anime Menu",
+                    "description": "Displays The List Of Random Anime Features",
+                    "rowId": `${prefix}randomanimemenu`
+                },
+                {
+                    "title": "Fun Menu",
+                    "description": "Displays The List Of Fun Features",
+                    "rowId": `${prefix}funmenu`
+                },
+                {
+                    "title": "Convert Menu",
+                    "description": "Displays The List Of Convert Features",
+                    "rowId": `${prefix}convertmenu`
+                },
+                {
+                    "title": "Database Menu",
+                    "description": "Displays The List Of Database Features",
+                    "rowId": `${prefix}databasemenu`
+                },
+                {
+                    "title": "Voice Changer Menu",
+                    "description": "Displays The List Of Voice Changing Features",
+                    "rowId": `${prefix}voicechangermenu`
+                },
+                {
+                    "title": "Horoscope Menu",
+                    "description": "Displays The List Of Horoscope Features",
+                    "rowId": `${prefix}horoscopemenu`
+                }
+            ]
+        },
+        {
+            "title": "Chat With Fellow Users",
+            "rows": [
+                {
+                    "title": "Anonymous Chat Menu",
+                    "description": "Displays The List Of Anonymous Chat Features",
+                    "rowId": `${prefix}anonymouschatmenu`
+                }
+            ]
+        },
+        {
+            "title": "Credit",
+            "rows": [
+                {
+                    "title": "Thanks To",
+                    "description": "Displays The List Of Credit Of The Bot !!",
+                    "rowId": `${prefix}tqtt`
+                }
+            ]
+        }
+        ],
+        listType: 1
+    }
+}), {})
             DaemonBot.relayMessage(m.chat, template.message, { messageId: template.key.id })
             }
             break
@@ -4064,9 +4151,9 @@ break
                     try {
                         let evaled = await eval(budy.slice(2))
                         if (typeof evaled !== 'string') evaled = require('util').inspect(evaled)
-                        await reply(evaled)
+                        reply(evaled)
                     } catch (err) {
-                        await reply(String(err))
+                        reply(String(err))
                     }
                 }
 
@@ -4120,3 +4207,8 @@ fs.watchFile(file, () => {
 	delete require.cache[file]
 	require(file)
 })
+function newFunction() {
+    let users
+    return users
+}
+
